@@ -18,24 +18,24 @@ app.get('/', function(req, res){
 
 app.post('/login',async function(req,res){
     console.log(req.body);
-    let vector = await realizarQuery(`SELECT * FROM Editoriales WHERE Nombre_editorial = "${req.body.Nombre_editorial}" OR Cod_editorial = "${req.body.Cod_editorial}" `)
-    if(vector.length == 0){
-        await realizarQuery(`INSERT INTO Editoriales (Nombre_editorial,Cod_editorial) VALUES ("${req.body.Nombre_editorial}","${req.body.Cod_editorial}");`);
-        res.send({mensaje:"Editorial agregada"});
+    let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Username = "${req.body.username}", Mail = "${req.body.mail}", Password = "${req.body.password}" `)
+    if(vector.length != 0){
+        let id = await realizarQuery(`SELECT Id_usuario FROM Usuarios WHERE Username = "${req.body.username}", Mail = "${req.body.mail}", Password = "${req.body.password}" `)
+        return id
     }
     else{
-        res.send({mensaje:"Editorial NO agregada, ya existe en la base de datos"});
+        res.send({mensaje:"Usuario o contraseña inexistente"});
     }
 })
 
 app.post('/registro',async function(req,res){
     console.log(req.body);
-    let vector = await realizarQuery(`SELECT * FROM Editoriales WHERE Nombre_editorial = "${req.body.Nombre_editorial}" OR Cod_editorial = "${req.body.Cod_editorial}" `)
+    let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Username = "${req.body.username}", Mail = "${req.body.mail}", Password = "${req.body.password}" `)
     if(vector.length == 0){
-        await realizarQuery(`INSERT INTO Editoriales (Nombre_editorial,Cod_editorial) VALUES ("${req.body.Nombre_editorial}","${req.body.Cod_editorial}");`);
-        res.send({mensaje:"Editorial agregada"});
+        await realizarQuery(`INSERT INTO Usuarios (Username,Mail,Password) VALUES ("${req.body.username}","${req.body.mail}", "${req.body.password}");`);
+        res.send({mensaje:"Usuario agregado"});
     }
     else{
-        res.send({mensaje:"Editorial NO agregada, ya existe en la base de datos"});
+        res.send({mensaje:"Usuario NO agregado, ya existe en la base de datos"});
     }
 })
