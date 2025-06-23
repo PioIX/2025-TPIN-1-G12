@@ -16,7 +16,7 @@ function registrar() {
     mail = getMail();
     password = getPassword();
     if(user == "" || mail == "" || password == ""){
-        return "Error; falta ingresar datos"
+        return alert("Faltan datos")
     }
     let datos = {
         username: user,
@@ -43,7 +43,7 @@ function loguear() {
     user = getUsername();
     password = getPassword();
     if(user == "" || password == ""){
-        return "Error; falta ingresar datos"
+        return alert("Faltan datos")
     }
     let datos = {
         username: getUsername(),
