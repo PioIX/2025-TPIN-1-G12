@@ -1,5 +1,5 @@
 async function registro(datos) {
-    response = await fetch(`http://localhost:4001/registro`,{
+    response = await fetch(`http://localhost:4000/registro`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -12,16 +12,22 @@ async function registro(datos) {
 
 
 function registrar() {
+    user = getUsername();
+    mail = getMail();
+    password = getPassword();
+    if(user == "" || mail == "" || password == ""){
+        return "Error; falta ingresar datos"
+    }
     let datos = {
-        username: getUsername(),
-        mail: getMail(),
-        password: getPassword()
+        username: user,
+        mail: mail,
+        password: password
     }
     registro(datos)
 }
 
 async function login(datos) {
-    response = await fetch(`http://localhost:4001/registro`,{
+    response = await fetch(`http://localhost:4000/login`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -34,9 +40,13 @@ async function login(datos) {
 
 
 function loguear() {
+    user = getUsername();
+    password = getPassword();
+    if(user == "" || password == ""){
+        return "Error; falta ingresar datos"
+    }
     let datos = {
         username: getUsername(),
-        mail: getMail(),
         password: getPassword()
     }
     login(datos)

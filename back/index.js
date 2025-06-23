@@ -18,10 +18,9 @@ app.get('/', function(req, res){
 
 app.post('/login',async function(req,res){
     console.log(req.body);
-    let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Username = "${req.body.username}", Mail = "${req.body.mail}", Password = "${req.body.password}" `)
+    let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Username = "${req.body.username}", Password = "${req.body.password}" `)
     if(vector.length != 0){
-        let id = await realizarQuery(`SELECT Id_usuario FROM Usuarios WHERE Username = "${req.body.username}", Mail = "${req.body.mail}", Password = "${req.body.password}" `)
-        return id
+        res.send({mensaje:"Usuario encontrado"})
     }
     else{
         res.send({mensaje:"Usuario o contraseña inexistente"});
