@@ -16,7 +16,7 @@ function registrar() {
     mail = ui.getMail();
     password = ui.getPassword();
     if(user == "" || mail == "" || password == ""){
-        return alert("Faltan datos")
+        return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         username: user,
@@ -43,7 +43,7 @@ function loguear() {
     user = ui.getUsername();
     password = ui.getPassword();
     if(user == "" || password == ""){
-        return alert("Faltan datos")
+        return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         username: user,

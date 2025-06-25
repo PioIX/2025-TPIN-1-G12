@@ -3,6 +3,18 @@ class ui {
 
     }
 
+    showModal(title, body) {
+        document.getElementById("modalTitle").textContent = title;
+        document.getElementById("modalBody").textContent = body;
+
+        const modal = new bootstrap.Modal('#modal', {
+            keyboard: true,
+            focus: true
+        });
+
+        modal.show();
+    }
+
     getUsername(){
         let usuario = document.getElementById("user").value
         return usuario
