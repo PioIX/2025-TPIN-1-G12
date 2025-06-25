@@ -12,9 +12,9 @@ async function registro(datos) {
 
 
 function registrar() {
-    user = getUsername();
-    mail = getMail();
-    password = getPassword();
+    user = ui.getUsername();
+    mail = ui.getMail();
+    password = ui.getPassword();
     if(user == "" || mail == "" || password == ""){
         return alert("Faltan datos")
     }
@@ -40,14 +40,14 @@ async function login(datos) {
 
 
 function loguear() {
-    user = getUsername();
-    password = getPassword();
+    user = ui.getUsername();
+    password = ui.getPassword();
     if(user == "" || password == ""){
         return alert("Faltan datos")
     }
     let datos = {
-        username: getUsername(),
-        password: getPassword()
+        username: user,
+        password: password
     }
     login(datos)
 }
