@@ -7,7 +7,12 @@ async function registro(datos) {
         body: JSON.stringify(datos)
     })
     let result = await response.json()
-    console.log(result)
+    if(result.validar == false){
+        return ui.showModal("Error", "Usuario existente")
+    } else {
+        ui.showmodal("Exito", "Usuario creado sin problemas")
+        // Aca poner un metodo cuando salga ok el registro para cambiar de pagina/pestaña
+    }
 }
 
 
@@ -16,7 +21,7 @@ function registrar() {
     mail = ui.getMail();
     password = ui.getPassword();
     if(user == "" || mail == "" || password == ""){
-        return alert("Faltan datos")
+        return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         username: user,
@@ -35,7 +40,12 @@ async function login(datos) {
         body: JSON.stringify(datos)
     })
     let result = await response.json()
-    console.log(result)
+    if(result.validar == false){
+        return ui.showModal("Error", "Usuario o contraseña inexistente")
+    } else {
+        return alert("ok")
+        // Aca poner un metodo cuando salga ok el login para cambiar de pagina/pestaña
+    }
 }
 
 
@@ -43,7 +53,7 @@ function loguear() {
     user = ui.getUsername();
     password = ui.getPassword();
     if(user == "" || password == ""){
-        return alert("Faltan datos")
+        return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         username: user,
