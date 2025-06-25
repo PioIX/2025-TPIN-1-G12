@@ -30,16 +30,5 @@ class ui {
         return usuario
     }
 
-    showModal(title, body) {
-        document.getElementById("modalTitle").textContent = title;
-        document.getElementById("modalBody").textContent = body;
-
-        const modal = new bootstrap.Modal('#modal', {
-            keyboard: true,
-            focus: true
-        });
-
-        modal.show();
-    }
 }
 

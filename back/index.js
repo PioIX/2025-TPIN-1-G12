@@ -20,10 +20,10 @@ app.post('/login',async function(req,res){
     console.log(req.body);
     let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Username = "${req.body.username}", Password = "${req.body.password}" `)
     if(vector.length != 0){
-        res.send({mensaje:"Usuario encontrado"})
+        res.send({validar:true})
     }
     else{
-        res.send({mensaje:"Usuario o contraseña inexistente"});
+        res.send({validar:false});
     }
 })
 
@@ -32,9 +32,9 @@ app.post('/registro',async function(req,res){
     let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Username = "${req.body.username}", Mail = "${req.body.mail}", Password = "${req.body.password}" `)
     if(vector.length == 0){
         await realizarQuery(`INSERT INTO Usuarios (Username,Mail,Password) VALUES ("${req.body.username}","${req.body.mail}", "${req.body.password}");`);
-        res.send({mensaje:"Usuario agregado"});
+        res.send({validar:true});
     }
     else{
-        res.send({mensaje:"Usuario NO agregado, ya existe en la base de datos"});
+        res.send({validar:false});
     }
 })

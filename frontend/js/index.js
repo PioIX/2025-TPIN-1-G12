@@ -7,7 +7,12 @@ async function registro(datos) {
         body: JSON.stringify(datos)
     })
     let result = await response.json()
-    console.log(result)
+    if(result.validar == false){
+        return ui.showModal("Error", "Usuario existente")
+    } else {
+        ui.showmodal("Exito", "Usuario creado sin problemas")
+        // Aca poner un metodo cuando salga ok el registro para cambiar de pagina/pestaña
+    }
 }
 
 
@@ -35,7 +40,12 @@ async function login(datos) {
         body: JSON.stringify(datos)
     })
     let result = await response.json()
-    console.log(result)
+    if(result.validar == false){
+        return ui.showModal("Error", "Usuario o contraseña inexistente")
+    } else {
+        return alert("ok")
+        // Aca poner un metodo cuando salga ok el login para cambiar de pagina/pestaña
+    }
 }
 
 
