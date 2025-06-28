@@ -1,0 +1,129 @@
+.lexend-deca {
+    font-family: "Lexend Deca", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 400;
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    max-height: fit-content;
+    font-family: Lexend Deca;
+}
+
+body {
+    background-color: #6b5d5d;
+}
+
+#contenido {
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    background-color: #f1faee;
+    border-radius: 20px;
+}
+
+
+#titulo {
+    padding: 0 0 20px 0;
+    text-align: center;
+    font-size: 50px;
+    color: #6d0000;
+}
+
+#contenido form {
+    padding: 0 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form #usuario {
+    position: relative;
+    margin: 25px 0;
+}
+
+form #contrasenia {
+    position: relative;
+    margin: 25px 0;
+}
+
+#btn-1 {
+    width: 655px;
+    color: #6d0000;
+    border: solid #f1faee;
+    background-color: #f1faee;
+    border-radius: 20px;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+    transition-duration: 0.4s;
+}
+
+#btn-1:hover {
+  background: #e63946;
+  color: #f1faee;
+  border: solid #f1faee;
+}
+
+#usuario input {
+    margin-left: -60px;
+    justify-content: center;
+    width: 147%;
+    border-radius: 20px;
+    padding: 10px;
+    height: 50px;
+    font-size: 25px;
+    border: solid #6d0000;
+    background: none;
+    outline: none;
+}
+
+#usuario label {
+    position: absolute;
+    top: -30%;
+    left: 5px;
+    margin-left: -60px;
+    color: #aeb4ab;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+#contrasenia input {
+    margin-left: -60px;
+    justify-content: center;
+    width: 147%;
+    border-radius: 20px;
+    padding: 10px;
+    height: 50px;
+    font-size: 25px;
+    border: solid #6d0000;
+    background: none;
+    outline: none;
+}
+
+#contrasenia label {
+    position: absolute;
+    top: -30%;
+    left: 5px;
+    margin-left: -60px;
+    color: #aeb4ab;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+#pregunta {
+    padding: 15px;
+    text-align: center;
+    color: #6d0000;
+}
+
+a {
+    text-decoration: none;
+}
