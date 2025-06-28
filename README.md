@@ -59,11 +59,18 @@ A continuación, aclarar la propuesta para cada entregable (en este primer proye
 
 ### Diagrama Gantt
 
+<img src="https://github.com/PioIX/2025---TPIN-1---G12/blob/main/fotos/Captura%20de%20pantalla%202025-06-28%20025100.png?raw=true" height="550px" />
+
 Naranja: Investigación
+
 Verde: Base de Datos
+
 Celeste: BackEnd
+
 Azul: FrontEnd
+
 Amarillo: Diseño
+
 Violeta: Testeos
 
 ### Primer entregable
