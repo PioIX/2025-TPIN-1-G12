@@ -54,6 +54,8 @@ function loguear() {
     password = ui.getPassword();
     if(user == "" || password == ""){
         return ui.showModal("Error", "Faltan datos")
+    } else if(user == "admin" && password == "juegoCeleste"){
+        window.location.href = '' //Insertar HTML admin;
     }
     let datos = {
         username: user,

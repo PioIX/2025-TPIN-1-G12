@@ -75,7 +75,7 @@ app.put('/opciones', async function(req,res){
     res.send({validar:true})
 })
 
-/* Consultar a Gian 
+/* Debatir ideas para puntaje 
 app.delete('/puntajeUsuarios', async function(req,res){
     console.log(req.body);
     await realizarQuery(`DELETE FROM Users WHERE  = ${req.body.puntaje}`);
