@@ -5,6 +5,21 @@
     font-weight: 400;
 }
 
+@media screen and (max-width: 768px) {
+    .body {
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        grid-template-rows: 15vh, 75vh, 10vh;
+        gap: 0px, 0px;
+        grid-template-areas: "header"
+        "main"
+        "footer";
+    }
+
+    
+}
+
 *{
     margin: 0px;
     padding: 0px;

@@ -1,0 +1,121 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+            <link rel="stylesheet" href="css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="todo">
+        <div id="menu">
+            <a href="#categoria-1">Agregar preguntas</a>
+            <a href="#admin-2">Eliminación</a>
+            <a href="#admin-3">Modificación</a>
+        </div>
+        <div id="admin-1">
+            <form>
+                <div id="categoria-1">
+                    <label>Categoría</label>
+                    <select id="select">
+                        <option id="op-1" value="historia">Historia</option>
+                        <option id="op-2" value="videojuegos">Videojuegos</option>
+                        <option id="op-3" value="tv">Series y peliculas</option>
+                        <option id="op-4" value="musica">Música</option>
+                        <option id="op-5" value="pop">Cultura pop</option>
+                        <option id="op-6" value="ciencia">Ciencia</option>
+                        <option id="op-7" value="anime">Anime</option>
+                    </select>
+                </div>
+            </form>
+            <div id="divcont">
+                <label>Contenido pregunta</label>
+                <input id="contenido" type="text" required>
+            </div>
+            <form id="opciones">
+                <div id="divop-1">
+                    <input id="opcion-1" type="text" required>
+                    <label>Opción 1</label>
+                </div>
+                <div id="divop-2">
+                    <input id="opcion-2" type="text" required>
+                    <label>Opción 2</label>
+                </div>
+                <div id="divop-3">
+                    <input id="opcion-3" type="text" required>
+                    <label>Opción 3</label>
+                </div>
+                <div id="divop-4">
+                    <input id="opcion-4" type="text" required>
+                    <label>Opción 4</label>
+                </div>
+            </form>
+            <button id="btn-1" onclick="">Agregar pregunta</button>
+        </div>
+        <div id="admin-2">
+            <form id="eliminacion">
+                <div id="elimuser">
+                    <input id="usuarioid-1" type="text" required>
+                    <label>Id usuario</label>
+                </div>
+                <button id="btn-2" onclick="">Eliminar usuario</button>
+                <div id="elimpuntos">
+                    <input id="usuarioid-2" type="text" required>
+                    <label>Id usuario</label>
+                </div>
+                <button id="btn-3" onclick="">Eliminar puntaje</button>
+                <div id="elimpreg">
+                    <input id="preguntaid-1" type="text" required>
+                    <label>Id pregunta</label>
+                </div>
+                <button id="btn-4" onclick="">Eliminar pregunta</button>
+            </form>
+        </div>
+        <div id="admin-3">
+            <form>
+                <div id="categoria-2">
+                    <label>Categoría</label>
+                    <select id="select">
+                        <option id="op-1" value="historia">Historia</option>
+                        <option id="op-2" value="videojuegos">Videojuegos</option>
+                        <option id="op-3" value="tv">Series y peliculas</option>
+                        <option id="op-4" value="musica">Música</option>
+                        <option id="op-5" value="pop">Cultura pop</option>
+                        <option id="op-6" value="ciencia">Ciencia</option>
+                        <option id="op-7" value="anime">Anime</option>
+                    </select>
+                </div>
+                <div id="idpregunta">
+                    <input id="preguntaid-2" type="text" required>
+                    <label>Id pregunta</label>
+                </div>
+            </form>
+            <div id="divcont">
+                <label>Contenido pregunta</label>
+                <input id="contenido" type="text" required>
+            </div>
+            <form id="opciones">
+                <div id="divop-1">
+                    <input id="opcion-1" type="text" required>
+                    <label>Opción 1</label>
+                </div>
+                <div id="divop-2">
+                    <input id="opcion-2" type="text" required>
+                    <label>Opción 2</label>
+                </div>
+                <div id="divop-3">
+                    <input id="opcion-3" type="text" required>
+                    <label>Opción 3</label>
+                </div>
+                <div id="divop-4">
+                    <input id="opcion-4" type="text" required>
+                    <label>Opción 4</label>
+                </div>
+            </form>
+            <button id="btn-5" onclick="">Modificar pregunta</button>
+        </div>
+    </div>
+</body>
+</html>
