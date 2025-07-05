@@ -44,7 +44,8 @@ app.post('/preguntas',async function(req,res){
     let vector = await realizarQuery(`SELECT * FROM Preguntas WHERE Pregunta = "${req.body.pregunta}"`)
     if(vector.length == 0){
         await realizarQuery(`INSERT INTO Preguntas (Pregunta,Id_Categoria) VALUES ("${req.body.pregunta}", "${req.body.id}");`);
-        res.send({validar:true});
+        let id = await realizarQuery(`SELECT LAST_INSERT_ID();`)
+        res.send({validar:true, pregunta:id});
     }
     else{
         res.send({validar:false});
@@ -84,7 +85,7 @@ app.delete('/puntajeUsuarios', async function(req,res){
 
 app.delete('/usuarios', async function(req,res){
     console.log(req.body);
-    await realizarQuery(`DELETE FROM Users WHERE Username = ${req.body.username}`);
+    await realizarQuery(`DELETE FROM Users WHERE ID = ${req.body.username}`);
     res.send({validar:true})
 })
 
