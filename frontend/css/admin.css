@@ -9,12 +9,14 @@
     .body {
         width: 100vw;
         height: 100vh;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
+        display: grid;
+        grid-template-rows: 15vh, 75vh, 10vh;
         gap: 0px, 0px;
-
+        grid-template-areas: "header"
+        "main"
+        "footer";
     }
+
     
 }
 
@@ -30,6 +32,12 @@ body {
     background-color: #6b5d5d;
 }
 
+#todo {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
 #contenidohtml {
     display: flex;
     flex-direction: column;
@@ -38,10 +46,11 @@ body {
 
 #menu {
     position: fixed;
-    width: 100%;
     display: flex;
+    flex-wrap: nowrap;
     padding: 25px;
     background-color: #e63946;
+    width: 100%;
     gap: 40px;
     font-size: 30px;
     border-radius: 20px;
@@ -60,6 +69,7 @@ a:hover {
 }
 
 #admin-1 {
+    margin-top: 50px;
     text-align: center;
     position: relative;
     padding: 30px;
@@ -67,51 +77,39 @@ a:hover {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 30%;
-    top: 45%;
-    left: 50%;
     color: #6d0000;
-    transform: translate(-50%, -50%);
     align-self: center;
     background-color: #f1faee;
-    max-width: 40%;
     border-radius: 20px;
 }
 
 #admin-2 {
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
     padding: 30px;
     font-size: 30px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    position: absolute;
-    top: 105%;
-    left: 50%;
     color: #6d0000;
-    transform: translate(-50%, -50%);
     align-self: center;
     background-color: #f1faee;
-    width: 30%;
-    max-width: 40%;
     border-radius: 20px;
 }
 
 #admin-3 {
+    margin-top: 20px;
     text-align: center;
+    position: relative;
     padding: 30px;
     font-size: 30px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    position: absolute;
-    width: 30%;
-    top: 169%;
-    left: 50%;
     color: #6d0000;
-    transform: translate(-50%, -50%);
     align-self: center;
     background-color: #f1faee;
-    max-width: 40%;
     border-radius: 20px;
 }
 
