@@ -81,7 +81,7 @@ a:hover {
     align-self: center;
     background-color: #f1faee;
     border-radius: 20px;
-    width: 60%;
+    width: 50%;
 }
 
 #admin-2 {
@@ -110,7 +110,7 @@ a:hover {
     align-self: center;
     background-color: #f1faee;
     border-radius: 20px;
-    width: 60%;
+    width: 50%;
 }
 
 #select, #select2 {
@@ -151,7 +151,7 @@ a:hover {
 
 #contenido, #contenido2 {
     margin-top: 20px;
-    width: 80%;
+    width: 100%;
     border-radius: 20px;
     display: block;
     padding: 10px;
@@ -217,6 +217,7 @@ a:hover {
 #correcto-1, #correcto-2, #correcto-3, #correcto-4, #correcto-5, #correcto-6, #correcto-7, #correcto-8 {
     margin-top: 14px;
     margin-left: 10px;
+    padding: -10%;
 }
 
 
