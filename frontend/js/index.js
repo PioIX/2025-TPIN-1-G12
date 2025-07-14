@@ -1,3 +1,5 @@
+let loguedUser = 0
+
 async function registro(datos) {
     response = await fetch(`http://localhost:4000/registro`,{
         method:"POST", 
@@ -11,7 +13,9 @@ async function registro(datos) {
         return ui.showModal("Error", "Usuario existente")
     } else {
         ui.showmodal("Exito", "Usuario creado sin problemas")
-        // Aca poner un metodo cuando salga ok el registro para cambiar de pagina/pestaña
+        loguedUser = result.log
+        window.location.replace("juego.html")
+        return;
     }
 }
 
@@ -43,8 +47,9 @@ async function login(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Usuario o contraseña inexistente")
     } else {
-        return alert("ok")
-        // Aca poner un metodo cuando salga ok el login para cambiar de pagina/pestaña
+        loguedUser = result.log
+        window.location.replace("juego.html")
+        return;
     }
 }
 
@@ -92,6 +97,64 @@ function borrarUsuario() {
     deleteUsers(datos)
 }
 
+async function getPoints(datos) {
+    response = await fetch(`http://localhost:4000/puntaje`,{
+        method:"POST", 
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify(datos)
+    })
+    let result = await response.json()
+    if(result.validar == false){
+        ui.showModal("Error", "Puntaje no Encontrado")
+        return;
+    } else {
+        let puntaje = result.validar
+        return puntaje
+    }
+}
+
+
+function traerPuntaje(id) {
+    if(id == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        user: id,
+    }
+    let PuntajeMax = getPoints(datos)
+    return PuntajeMax
+}
+
+async function nuevoMaximo(datos) {
+    response = await fetch(`http://localhost:4000/mejorPuntaje`,{
+        method:"PUT", 
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify(datos)
+    })
+    let result = await response.json()
+    if(result.validar == false){
+        return ui.showModal("Error", "Algo salio mal, no se pudo guardar el nuevo puntaje maximo")
+    } else {
+        return ui.showmodal("Felicitaciones", "Nuevo mejor puntaje")
+    }
+}
+
+
+function newMax(cambio, id) {
+    if(cambio == undefined || id == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        cambio: cambio,
+        id: id,
+    }
+    nuevoMaximo(datos)
+}
+
 async function deletePoints(datos) {
     response = await fetch(`http://localhost:4000/puntajeUsuarios`,{
         method:"PUT", 
@@ -118,6 +181,38 @@ function borrarPuntaje() {
         id: Id,
     }
     deletePoints(datos)
+}
+
+
+async function idCat(datos) {
+    response = await fetch(`http://localhost:4000/catPreg`,{
+        method:"POST", 
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify(datos)
+    })
+    let result = await response.json()
+    if(result.validar == false){
+        ui.showModal("Error", "Categoria no Encontrada")
+        return;
+    } else {
+        let catId = result.validar
+        return catId
+    }
+}
+
+
+function categoria() {
+    user = ui.getUsername();
+    if(user == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        categoria: user,
+    }
+    let catId = idCat(datos)
+    return catId
 }
 
 async function sumarPregunta(datos) {
@@ -152,6 +247,67 @@ function aniadirPregunta() {
     }
     let pregId = sumarPregunta(datos)
     return pregId
+}
+
+async function traerPregunta(datos) {
+    response = await fetch(`http://localhost:4000/idpregGame`,{
+        method:"POST", 
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify(datos)
+    })
+    let result = await response.json()
+    if(result.validar == false){
+        ui.showModal("Error", "Pregunta no Encontrada")
+        return;
+    } else {
+        let pregunta = result.validar
+        return pregunta
+    }
+}
+
+
+function preguntinia(catID) {
+    if(catID == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        id: catID,
+    }
+    let pregunta = traerPregunta(datos)
+    document.getElementById("").value = pregunta
+    return pregunta
+}
+
+async function traerIdPregunta(datos) {
+    response = await fetch(`http://localhost:4000/pregGame`,{
+        method:"POST", 
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify(datos)
+    })
+    let result = await response.json()
+    if(result.validar == false){
+        ui.showModal("Error", "Pregunta no Encontrada")
+        return;
+    } else {
+        let pregunta = result.validar
+        return pregunta
+    }
+}
+
+
+function idPreg(pregunta) {
+    if(pregunta == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        pregunta: pregunta,
+    }
+    let id = traerIdPregunta(datos)
+    return id
 }
 
 async function cambiazoPregunta(datos) {
@@ -238,6 +394,40 @@ function aniadirOpcion(opcion, id) {
         id: id,
     }
     sumarOpcion(datos)
+}
+
+async function traerOpciones(datos) {
+    response = await fetch(`http://localhost:4000/opcionesGame`,{
+        method:"POST", 
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify(datos)
+    })
+    let result = await response.json()
+    if(result.validar == false){
+        ui.showModal("Error", "Pregunta no Encontrada")
+        return;
+    } else {
+        let pregunta = result.validar
+        return pregunta
+    }
+}
+
+
+function fillOpciones(pregID) {
+    if(pregID == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        id: pregID,
+    }
+    let opciones = traerOpciones(datos)
+    document.getElementById("").value = opciones[0]
+    document.getElementById("").value = opciones[1]
+    document.getElementById("").value = opciones[2]
+    document.getElementById("").value = opciones[3]
+    return
 }
 
 async function cambiazoOpcion(datos) {
@@ -372,4 +562,65 @@ function botonModPreg(){
     if(opcion4 != undefined){
         actualizarOpcion(opcion4, o4Id)
     }
+}
+
+async function traerCorreccion(datos) {
+    response = await fetch(`http://localhost:4000/opcionesGame`,{
+        method:"POST", 
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify(datos)
+    })
+    let result = await response.json()
+    if(result.validar == false){
+        ui.showModal("Error", "Pregunta no Encontrada")
+        return;
+    } else {
+        let verif = result.rta
+        return verif
+    }
+}
+
+function finDelJuego(user, puntajeActual){
+    let final = traerPuntaje(user)
+    if(puntajeActual > final){
+        newMax(puntajeActual, user)
+    } else {
+        ui.showModal("Bien jugado", "Tal vez la proxima superes tu mejor racha")
+    }
+}
+
+
+function bienOMal() {
+    let opcion1 = document.getElementById("")
+    let opcion2 = document.getElementById("")
+    let opcion3 = document.getElementById("")
+    let opcion4 = document.getElementById("")
+    let chequear = ""
+    if(opcion1.checked == true){
+        chequear = opcion1.value
+    }
+    if(opcion2.checked == true){
+        chequear = opcion2.value
+    }
+    if(opcion3.checked == true){
+        chequear = opcion3.value
+    }
+    if(opcion4.checked == true){
+        chequear = opcion4.value
+    }
+    if(pregID == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        opcion: chequear,
+    }
+    let puedeSer = traerCorreccion(datos)
+    if(puedeSer == "bien"){
+        puntajeActual += 1
+    } else if (puedeSer == "mal"){
+        finDelJuego(loguedUser, puntajeActual)
+    }
+    return
 }
