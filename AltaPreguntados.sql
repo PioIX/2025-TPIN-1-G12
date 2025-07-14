@@ -579,5 +579,5 @@ Values
 ('Bola Chong', 'pchong@pioix.edu.ar', 'Towa69', 0),
 ('SeGiFer', 'sgilfernandez@pioix.edu.ar', 'Peron2027', 0),
 ('MorVega', 'mvega@pioix.edu.ar', 'Kilowatt31', 0),
-('a', 'facil@acceso.com.ar', '1', 0)
+('a', 'facil@acceso.com.ar', '1', 1)
 ;
