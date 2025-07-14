@@ -66,7 +66,7 @@ function loguear() {
 
 async function deleteUsers(datos) {
     response = await fetch(`http://localhost:4000/usuarios`,{
-        method:"PUT", 
+        method:"DELETE", 
         headers: {
             "Content-Type": "application/json",
           },
@@ -92,6 +92,33 @@ function borrarUsuario() {
     deleteUsers(datos)
 }
 
+async function deletePoints(datos) {
+    response = await fetch(`http://localhost:4000/puntajeUsuarios`,{
+        method:"PUT", 
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body: JSON.stringify(datos)
+    })
+    let result = await response.json()
+    if(result.validar == false){
+        return ui.showModal("Error", "Puntaje no eliminado; verifique los campos ingresados o intente de nuevo mas tarde")
+    } else {
+        ui.showmodal("Exito", "Puntaje Extinguido")
+    }
+}
+
+
+function borrarPuntaje() {
+    Id = ui.getElimPoints();
+    if(Id == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        id: Id,
+    }
+    deletePoints(datos)
+}
 
 async function sumarPregunta(datos) {
     response = await fetch(`http://localhost:4000/preguntas`,{
