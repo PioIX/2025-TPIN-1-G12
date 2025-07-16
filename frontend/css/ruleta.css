@@ -1,3 +1,4 @@
+
 .lexend-deca {
     font-family: "Lexend Deca", sans-serif;
     font-optical-sizing: auto;
@@ -32,36 +33,13 @@ body {
     background-color: #6b5d5d;
 }
 
-#contenido-3 {
+#ruleta {
     padding: 20px;
     text-align: center;
     position: relative;
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    gap: 50px   ;
-}
-
-#contenidopreg {
-    font-size: 50px;
-    background-color: #6d0000;
-    color: #f1faee;
-    border-radius: 20px;
-    justify-self: center;
-    padding: 120px;
-    width: 80%;
-}
-
-#formosa {
-    display: flex;
-    flex-direction: row;
-    gap: 70px;
-    column-gap: 200px;
-    justify-content: space-around;
-    font-size: 30px;
-    flex-wrap: wrap;
 }
 
 #puntaje {
@@ -72,30 +50,36 @@ body {
     text-align: center;
     display: block;
     max-width: 150px;
-    max-height: 39px;
     font-size: 15px;
     margin-top: 15px;
     margin-left: 15px;
 }
 
-#but-1, #but-2, #but-3, #but-4 {
-    background-color: #e63946;
-    padding: 15px;
+input {
+    padding: 10px;
     border-radius: 20px;
-    color: #f1faee;
+    font-size: 30px;
     border: solid #6d0000;
-    width: 500px;
+    background-color: #e63946;
+    color: #f1faee;
     transition-duration: 0.4s;
+    width: 200px;
+    margin-left: 45%;
+    text-align: center;
+    position: relative;
+    top: 15%;
+    left: 5%;
+    transform: translate(-50%, -50%);
 }
 
-#but-1:hover, #but-2:hover, #but-3:hover, #but-4:hover {
-  background: #e63946;
-  color: #f1faee;
-  border: solid #f1faee;
-  width: 520px;
+input:hover {
+    background: #e63946;
+    color: #f1faee;
+    border: solid #f1faee;
+    width: 230px;
 }
 
-#logoutbut {
+#logoutbut-2 {
     padding: 15px;
     border-radius: 20px;
     align-items: flex-end;
@@ -104,11 +88,11 @@ body {
     border: solid #e63946;
     transition-duration: 0.4s;
     width: 150px;
-    margin-top: 20px;
+    margin-top: 200px;
     margin-left: 90%;
 }
 
-#logoutbut:hover {
+#logoutbut-2:hover {
     background-color: #6d0000;
     border: solid #6d0000;
     width: 170px;
