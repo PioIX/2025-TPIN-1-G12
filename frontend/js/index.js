@@ -1,7 +1,7 @@
 let loguedUser = 0
 
 async function registro(datos) {
-    response = await fetch(`http://localhost:4000/registro`,{
+    response = await fetch(`http://localhost:4001/registro`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -36,7 +36,7 @@ function registrar() {
 }
 
 async function login(datos) {
-    response = await fetch(`http://localhost:4000/login`,{
+    response = await fetch(`http://localhost:4001/login`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -70,7 +70,7 @@ function loguear() {
 }
 
 async function deleteUsers(datos) {
-    response = await fetch(`http://localhost:4000/usuarios`,{
+    response = await fetch(`http://localhost:4001/usuarios`,{
         method:"DELETE", 
         headers: {
             "Content-Type": "application/json",
@@ -98,7 +98,7 @@ function borrarUsuario() {
 }
 
 async function getPoints(datos) {
-    response = await fetch(`http://localhost:4000/puntaje`,{
+    response = await fetch(`http://localhost:4001/puntaje`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -128,7 +128,7 @@ function traerPuntaje(id) {
 }
 
 async function nuevoMaximo(datos) {
-    response = await fetch(`http://localhost:4000/mejorPuntaje`,{
+    response = await fetch(`http://localhost:4001/mejorPuntaje`,{
         method:"PUT", 
         headers: {
             "Content-Type": "application/json",
@@ -156,7 +156,7 @@ function newMax(cambio, id) {
 }
 
 async function deletePoints(datos) {
-    response = await fetch(`http://localhost:4000/puntajeUsuarios`,{
+    response = await fetch(`http://localhost:4001/puntajeUsuarios`,{
         method:"PUT", 
         headers: {
             "Content-Type": "application/json",
@@ -185,7 +185,7 @@ function borrarPuntaje() {
 
 
 async function idCat(datos) {
-    response = await fetch(`http://localhost:4000/catPreg`,{
+    response = await fetch(`http://localhost:4001/catPreg`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -215,8 +215,20 @@ async function categoriaAdd() {
     return catId
 }
 
+async function categoria(cat) {
+    if(cat == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        categoria: cat,
+    }
+    let catId = await idCat(datos)
+    console.log(catId)
+    return catId
+}
+
 async function sumarPregunta(datos) {
-    response = await fetch(`http://localhost:4000/preguntas`,{
+    response = await fetch(`http://localhost:4001/preguntas`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -250,7 +262,7 @@ async function aniadirPregunta(catID) {
 }
 
 async function traerPregunta(datos) {
-    response = await fetch(`http://localhost:4000/idpregGame`,{
+    response = await fetch(`http://localhost:4001/pregGame`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -263,25 +275,26 @@ async function traerPregunta(datos) {
         return;
     } else {
         let pregunta = result.validar
+        console.log(pregunta)
         return pregunta
     }
 }
 
 
-function preguntinia(catID) {
+async function preguntinia(catID) {
     if(catID == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         id: catID,
     }
-    let pregunta = traerPregunta(datos)
-    document.getElementById("preguntita").value = pregunta
-    return pregunta
+    let preguntaza = await traerPregunta(datos)
+    console.log(preguntaza[0])
+    return preguntaza[0]
 }
 
 async function traerIdPregunta(datos) {
-    response = await fetch(`http://localhost:4000/pregGame`,{
+    response = await fetch(`http://localhost:4001/pregGame`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -299,19 +312,19 @@ async function traerIdPregunta(datos) {
 }
 
 
-function idPreg(pregunta) {
+async function idPreg(pregunta) {
     if(pregunta == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         pregunta: pregunta,
     }
-    let id = traerIdPregunta(datos)
+    let id = await traerIdPregunta(datos)
     return id
 }
 
 async function cambiazoPregunta(datos) {
-    response = await fetch(`http://localhost:4000/preguntas`,{
+    response = await fetch(`http://localhost:4001/preguntas`,{
         method:"PUT", 
         headers: {
             "Content-Type": "application/json",
@@ -342,7 +355,7 @@ function actualizarPregunta() {
 }
 
 async function deletePregunta(datos) {
-    response = await fetch(`http://localhost:4000/preguntas`,{
+    response = await fetch(`http://localhost:4001/preguntas`,{
         method:"DELETE", 
         headers: {
             "Content-Type": "application/json",
@@ -370,7 +383,7 @@ function borrarPregunta() {
 }
 
 async function sumarOpcion(datos) {
-    response = await fetch(`http://localhost:4000/opciones`,{
+    response = await fetch(`http://localhost:4001/opciones`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -413,7 +426,7 @@ function aniadirOpcionT(opcion, id) {
 }
 
 async function traerOpciones(datos) {
-    response = await fetch(`http://localhost:4000/opcionesGame`,{
+    response = await fetch(`http://localhost:4001/opcionesGame`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -431,23 +444,23 @@ async function traerOpciones(datos) {
 }
 
 
-function fillOpciones(pregID) {
+async function fillOpciones(pregID) {
     if(pregID == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         id: pregID,
     }
-    let opciones = traerOpciones(datos)
-    document.getElementById("but-1").value = opciones[0]
-    document.getElementById("but-2").value = opciones[1]
-    document.getElementById("but-3").value = opciones[2]
-    document.getElementById("but-4").value = opciones[3]
+    let opciones = await traerOpciones(datos)
+    document.getElementById("but-1").value = opciones[0].Opcion
+    document.getElementById("but-2").value = opciones[1].Opcion
+    document.getElementById("but-3").value = opciones[2].Opcion
+    document.getElementById("but-4").value = opciones[3].Opcion
     return
 }
 
 async function cambiazoOpcion(datos) {
-    response = await fetch(`http://localhost:4000/opciones`,{
+    response = await fetch(`http://localhost:4001/opciones`,{
         method:"PUT", 
         headers: {
             "Content-Type": "application/json",
@@ -488,7 +501,7 @@ function actualizarOpcionT(cambio, id) {
 }
 
 async function menosOpcion(datos) {
-    response = await fetch(`http://localhost:4000/opcionesUnica`,{
+    response = await fetch(`http://localhost:4001/opcionesUnica`,{
         method:"DELETE", 
         headers: {
             "Content-Type": "application/json",
@@ -516,7 +529,7 @@ function borrarOpcion() {
 }
 
 async function noMasOpcion(datos) {
-    response = await fetch(`http://localhost:4000/opcionesPreg`,{
+    response = await fetch(`http://localhost:4001/opcionesPreg`,{
         method:"DELETE", 
         headers: {
             "Content-Type": "application/json",
@@ -619,8 +632,22 @@ function botonModPreg(){
     }
 }
 
+function a(){
+    window.location.replace("juego.html")
+}
+
+async function startGame(cat){
+    let catId = await categoria(cat)
+    let preg = await preguntinia(catId[0].Id_Categoria)
+    let pregId = await idPreg(catId[0].Id_Categoria)
+    a()
+    console.log(preg.Pregunta)
+    document.getElementById("preguntita").value = preg.Pregunta
+    fillOpciones(pregId[0].Id_pregunta)
+}
+
 async function traerCorreccion(datos) {
-    response = await fetch(`http://localhost:4000/opcionesGame`,{
+    response = await fetch(`http://localhost:4001/opcionesGame`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
