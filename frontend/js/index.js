@@ -275,7 +275,7 @@ function preguntinia(catID) {
         id: catID,
     }
     let pregunta = traerPregunta(datos)
-    document.getElementById("").value = pregunta
+    document.getElementById("preguntita").value = pregunta
     return pregunta
 }
 
@@ -435,10 +435,10 @@ function fillOpciones(pregID) {
         id: pregID,
     }
     let opciones = traerOpciones(datos)
-    document.getElementById("").value = opciones[0]
-    document.getElementById("").value = opciones[1]
-    document.getElementById("").value = opciones[2]
-    document.getElementById("").value = opciones[3]
+    document.getElementById("but-1").value = opciones[0]
+    document.getElementById("but-2").value = opciones[1]
+    document.getElementById("but-3").value = opciones[2]
+    document.getElementById("but-4").value = opciones[3]
     return
 }
 
@@ -643,10 +643,10 @@ function finDelJuego(user, puntajeActual){
 
 
 function bienOMal() {
-    let opcion1 = document.getElementById("")
-    let opcion2 = document.getElementById("")
-    let opcion3 = document.getElementById("")
-    let opcion4 = document.getElementById("")
+    let opcion1 = document.getElementById("but-1")
+    let opcion2 = document.getElementById("but-2")
+    let opcion3 = document.getElementById("but-3")
+    let opcion4 = document.getElementById("but-4")
     let chequear = ""
     if(opcion1.checked == true){
         chequear = opcion1.value
@@ -673,4 +673,10 @@ function bienOMal() {
         finDelJuego(loguedUser, puntajeActual)
     }
     return
+}
+
+function logout() {
+    loguedUser = 0;
+    puntajeActual=0;
+    window.location.replace("index.html");
 }
