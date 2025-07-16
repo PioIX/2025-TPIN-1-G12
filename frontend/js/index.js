@@ -198,20 +198,21 @@ async function idCat(datos) {
         return;
     } else {
         let catId = result.validar
+        console.log(catId)
         return catId
     }
 }
 
 
-function categoriaAdd() {
-    user = getCategoryAdd();
+async function categoriaAdd() {
+    user = ui.getCategoryAdd();
     if(user == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         categoria: user,
     }
-    let catId = idCat(datos)
+    let catId = await idCat(datos)
     return catId
 }
 
@@ -237,7 +238,7 @@ async function sumarPregunta(datos) {
 
 function aniadirPregunta(catID) {
     user = ui.getContent();
-    if(user == undefined || mail == undefined){
+    if(user == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
@@ -539,7 +540,7 @@ function borrarOpciones() {
     noMasOpcion(datos)
 }
 
-function botonAddPreg(){
+async function botonAddPreg(){
     let opcion1 = ui.getOpcion1();
     let opcion2 = ui.getOpcion2();
     let opcion3 = ui.getOpcion3();
@@ -548,8 +549,9 @@ function botonAddPreg(){
     let correcta2 = ui.getTrue2();
     let correcta3 = ui.getTrue3();
     let correcta4 = ui.getTrue4();
-    let catID = ui.categoriaAdd();
-    let pregId = aniadirPregunta(catID)
+    let catID = await categoriaAdd();
+    console.log(catID)
+    let pregId = aniadirPregunta(catID[0].Id_Categoria)
     if(opcion1 != undefined && correcta1 == true){
         aniadirOpcionT(opcion1, pregId)
     } else if(opcion1 != undefined){
@@ -678,5 +680,5 @@ function bienOMal() {
 function logout() {
     loguedUser = 0;
     puntajeActual=0;
-    window.location.replace("index.html");
+    window.location.replace("login.html");
 }
