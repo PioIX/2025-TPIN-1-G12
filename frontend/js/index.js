@@ -203,8 +203,8 @@ async function idCat(datos) {
 }
 
 
-function categoria() {
-    user = ui.getUsername();
+function categoriaAdd() {
+    user = getCategoryAdd();
     if(user == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
@@ -235,15 +235,14 @@ async function sumarPregunta(datos) {
 }
 
 
-function aniadirPregunta() {
-    user = ui.getUsername();
-    mail = ui.getMail();
+function aniadirPregunta(catID) {
+    user = ui.getContent();
     if(user == undefined || mail == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         pregunta: user,
-        id: mail,
+        id: catID,
     }
     let pregId = sumarPregunta(datos)
     return pregId
@@ -392,6 +391,19 @@ function aniadirOpcion(opcion, id) {
     let datos = {
         opcion: opcion,
         id: id,
+        correcta: false
+    }
+    sumarOpcion(datos)
+}
+
+function aniadirOpcionT(opcion, id) {
+    if(opcion == undefined || id == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        opcion: opcion,
+        id: id,
+        correcta: true
     }
     sumarOpcion(datos)
 }
@@ -454,6 +466,19 @@ function actualizarOpcion(cambio, id) {
     let datos = {
         cambio: cambio,
         id: id,
+        correcta: false
+    }
+    cambiazoOpcion(datos)
+}
+
+function actualizarOpcionT(cambio, id) {
+    if(cambio == undefined || id == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        cambio: cambio,
+        id: id,
+        correcta: true
     }
     cambiazoOpcion(datos)
 }
@@ -519,17 +544,30 @@ function botonAddPreg(){
     let opcion2 = ui.getOpcion2();
     let opcion3 = ui.getOpcion3();
     let opcion4 = ui.getOpcion4();
-    let pregId = aniadirPregunta()
-    if(opcion1 != undefined){
+    let correcta1 = ui.getTrue1();
+    let correcta2 = ui.getTrue2();
+    let correcta3 = ui.getTrue3();
+    let correcta4 = ui.getTrue4();
+    let catID = ui.categoriaAdd();
+    let pregId = aniadirPregunta(catID)
+    if(opcion1 != undefined && correcta1 == true){
+        aniadirOpcionT(opcion1, pregId)
+    } else if(opcion1 != undefined){
         aniadirOpcion(opcion1, pregId)
     }
-    if(opcion2 != undefined){
+    if(opcion2 != undefined && correcta2 == true){
+        aniadirOpcionT(opcion2, pregId)
+    } else if(opcion2 != undefined){
         aniadirOpcion(opcion2, pregId)
     }
-    if(opcion3 != undefined){
+    if(opcion3 != undefined && correcta3 == true){
+        aniadirOpcionT(opcion3, pregId)
+    } else if(opcion3 != undefined){
         aniadirOpcion(opcion3, pregId)
     }
-    if(opcion4 != undefined){
+    if(opcion4 != undefined && correcta4 == true){
+        aniadirOpcionT(opcion4, pregId)
+    } else if(opcion4 != undefined){
         aniadirOpcion(opcion4, pregId)
     }
 }
@@ -545,22 +583,34 @@ function botonModPreg(){
     let o2Id = pregId*4-2;
     let o3Id = pregId*4-1;
     let o4Id = pregId*4;
-    let opcion1 = ui.getOpcion1();
-    let opcion2 = ui.getOpcion2();
-    let opcion3 = ui.getOpcion3();
-    let opcion4 = ui.getOpcion4();
+    let opcion1 = ui.getOpcion1M();
+    let opcion2 = ui.getOpcion2M();
+    let opcion3 = ui.getOpcion3M();
+    let opcion4 = ui.getOpcion4M();
+    let correcta1 = ui.getTrue1M();
+    let correcta2 = ui.getTrue2M();
+    let correcta3 = ui.getTrue3M();
+    let correcta4 = ui.getTrue4M();
     actualizarPregunta();
-    if(opcion1 != undefined){
-        actualizarOpcion(opcion1, o1Id)
+    if(opcion1 != undefined && correcta1 == true){
+        actualizarOpcionT(opcion1, pregId)
+    } else if(opcion1 != undefined){
+        actualizarOpcion(opcion1, pregId)
     }
-    if(opcion2 != undefined){
-        actualizarOpcion(opcion2, o2Id)
+    if(opcion2 != undefined && correcta2 == true){
+        actualizarOpcionT(opcion2, pregId)
+    } else if(opcion2 != undefined){
+        actualizarOpcion(opcion2, pregId)
     }
-    if(opcion3 != undefined){
-        actualizarOpcion(opcion3, o3Id)
+    if(opcion3 != undefined && correcta3 == true){
+        actualizarOpcionT(opcion3, pregId)
+    } else if(opcion3 != undefined){
+        actualizarOpcion(opcion3, pregId)
     }
-    if(opcion4 != undefined){
-        actualizarOpcion(opcion4, o4Id)
+    if(opcion4 != undefined && correcta4 == true){
+        actualizarOpcionT(opcion4, pregId)
+    } else if(opcion4 != undefined){
+        actualizarOpcion(opcion4, pregId)
     }
 }
 
