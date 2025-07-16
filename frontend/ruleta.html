@@ -2,13 +2,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ruleta</title>
+    <link rel="stylesheet" href="css/ruleta.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="puntaje">
+        <p>0</p>
+    </div>
     <div id="ruleta">
         <canvas id="canvas" width="500" height="500"></canvas>
     </div>
     <input type="button" value="GIRAR" style="float:left;" id='spin' />
+    <div id="logout-2">
+        <button id="logoutbut-2" onclick="">Cerrar sesión</button>
+    </div>
 
     <script src="js/ruleta.js"></script>
 </body>
