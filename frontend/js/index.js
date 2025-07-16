@@ -12,7 +12,7 @@ async function registro(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Usuario existente")
     } else {
-        ui.showmodal("Exito", "Usuario creado sin problemas")
+        ui.showModal("Exito", "Usuario creado sin problemas")
         loguedUser = result.log
         window.location.replace("juego.html")
         return;
@@ -81,7 +81,7 @@ async function deleteUsers(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Usuario no eliminado; verifique los campos ingresados o intente de nuevo mas tarde")
     } else {
-        ui.showmodal("Exito", "Usuario Aniquilado")
+        ui.showModal("Exito", "Usuario Aniquilado")
     }
 }
 
@@ -139,7 +139,7 @@ async function nuevoMaximo(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Algo salio mal, no se pudo guardar el nuevo puntaje maximo")
     } else {
-        return ui.showmodal("Felicitaciones", "Nuevo mejor puntaje")
+        return ui.showModal("Felicitaciones", "Nuevo mejor puntaje")
     }
 }
 
@@ -167,7 +167,7 @@ async function deletePoints(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Puntaje no eliminado; verifique los campos ingresados o intente de nuevo mas tarde")
     } else {
-        ui.showmodal("Exito", "Puntaje Extinguido")
+        ui.showModal("Exito", "Puntaje Extinguido")
     }
 }
 
@@ -198,7 +198,6 @@ async function idCat(datos) {
         return;
     } else {
         let catId = result.validar
-        console.log(catId)
         return catId
     }
 }
@@ -229,14 +228,15 @@ async function sumarPregunta(datos) {
         ui.showModal("Error", "Pregunta no creada; verifique los campos ingresados")
         return;
     } else {
-        ui.showmodal("Exito", "Pregunta Añadida")
+        ui.showModal("Exito", "Pregunta Añadida")
         let pregId = result.pregunta
+        console.log(pregId)
         return pregId
     }
 }
 
 
-function aniadirPregunta(catID) {
+async function aniadirPregunta(catID) {
     user = ui.getContent();
     if(user == undefined){
         return ui.showModal("Error", "Faltan datos")
@@ -245,7 +245,7 @@ function aniadirPregunta(catID) {
         pregunta: user,
         id: catID,
     }
-    let pregId = sumarPregunta(datos)
+    let pregId = await sumarPregunta(datos)
     return pregId
 }
 
@@ -322,14 +322,15 @@ async function cambiazoPregunta(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Pregunta no modificada; verifique los campos ingresados")
     } else {
-        ui.showmodal("Exito", "Pregunta Actualizada")
+        ui.showModal("Exito", "Pregunta Actualizada")
     }
 }
 
 
 function actualizarPregunta() {
-    user = ui.getContent();
-    mail = ui.getCategotyAdd();
+    user = ui.getContentMod();
+    mail = ui.getModPreg();
+    console.log()
     if(user == undefined || mail == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
@@ -352,7 +353,7 @@ async function deletePregunta(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Pregunta no eliminada; verifique los campos ingresados o intente de nuevo mas tarde")
     } else {
-        ui.showmodal("Exito", "Pregunta eliminada de la faz del juego; restan opciones")
+        ui.showModal("Exito", "Pregunta eliminada de la faz del juego; restan opciones")
     }
 }
 
@@ -380,14 +381,16 @@ async function sumarOpcion(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Opcion no creada; verifique los campos ingresados")
     } else {
-        ui.showmodal("Exito", "Opcion Añadida")
+        ui.showModal("Exito", "Opcion Añadida")
     }
 }
 
 
 function aniadirOpcion(opcion, id) {
+    console.log(opcion)
+    console.log(id)
     if(opcion == undefined || id == undefined){
-        return ui.showModal("Error", "Faltan datos")
+        return ui.showModal("Error", "Faltan datos falsos")
     }
     let datos = {
         opcion: opcion,
@@ -399,7 +402,7 @@ function aniadirOpcion(opcion, id) {
 
 function aniadirOpcionT(opcion, id) {
     if(opcion == undefined || id == undefined){
-        return ui.showModal("Error", "Faltan datos")
+        return ui.showModal("Error", "Faltan datos posta")
     }
     let datos = {
         opcion: opcion,
@@ -455,7 +458,7 @@ async function cambiazoOpcion(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Opcion no modificada; verifique los campos ingresados")
     } else {
-        ui.showmodal("Exito", "Opcion Actualizada")
+        ui.showModal("Exito", "Opcion Actualizada")
     }
 }
 
@@ -496,7 +499,7 @@ async function menosOpcion(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Opcion no eliminada; verifique los campos ingresados o intente de nuevo mas tarde")
     } else {
-        ui.showmodal("Exito", "Opcion fuera de juego")
+        ui.showModal("Exito", "Opcion fuera de juego")
     }
 }
 
@@ -524,7 +527,7 @@ async function noMasOpcion(datos) {
     if(result.validar == false){
         return ui.showModal("Algo salio mal", "Opciones no eliminadas")
     } else {
-        ui.showmodal("Exito", "Pregunta completamente terminada")
+        ui.showModal("Exito", "Pregunta completamente terminada")
     }
 }
 
@@ -550,27 +553,27 @@ async function botonAddPreg(){
     let correcta3 = ui.getTrue3();
     let correcta4 = ui.getTrue4();
     let catID = await categoriaAdd();
-    console.log(catID)
-    let pregId = aniadirPregunta(catID[0].Id_Categoria)
+    let pregId = await aniadirPregunta(catID[0].Id_Categoria)
+    console.log(pregId[0].Id_pregunta)
     if(opcion1 != undefined && correcta1 == true){
-        aniadirOpcionT(opcion1, pregId)
+        aniadirOpcionT(opcion1, pregId[0].Id_pregunta)
     } else if(opcion1 != undefined){
-        aniadirOpcion(opcion1, pregId)
+        aniadirOpcion(opcion1, pregId[0].Id_pregunta)
     }
     if(opcion2 != undefined && correcta2 == true){
-        aniadirOpcionT(opcion2, pregId)
+        aniadirOpcionT(opcion2, pregId[0].Id_pregunta)
     } else if(opcion2 != undefined){
-        aniadirOpcion(opcion2, pregId)
+        aniadirOpcion(opcion2, pregId[0].Id_pregunta)
     }
     if(opcion3 != undefined && correcta3 == true){
-        aniadirOpcionT(opcion3, pregId)
+        aniadirOpcionT(opcion3, pregId[0].Id_pregunta)
     } else if(opcion3 != undefined){
-        aniadirOpcion(opcion3, pregId)
+        aniadirOpcion(opcion3, pregId[0].Id_pregunta)
     }
     if(opcion4 != undefined && correcta4 == true){
-        aniadirOpcionT(opcion4, pregId)
+        aniadirOpcionT(opcion4, pregId[0].Id_pregunta)
     } else if(opcion4 != undefined){
-        aniadirOpcion(opcion4, pregId)
+        aniadirOpcion(opcion4, pregId[0].Id_pregunta)
     }
 }
 
@@ -595,24 +598,24 @@ function botonModPreg(){
     let correcta4 = ui.getTrue4M();
     actualizarPregunta();
     if(opcion1 != undefined && correcta1 == true){
-        actualizarOpcionT(opcion1, pregId)
+        actualizarOpcionT(opcion1, o1Id)
     } else if(opcion1 != undefined){
-        actualizarOpcion(opcion1, pregId)
+        actualizarOpcion(opcion1, o1Id)
     }
     if(opcion2 != undefined && correcta2 == true){
-        actualizarOpcionT(opcion2, pregId)
+        actualizarOpcionT(opcion2, o2Id)
     } else if(opcion2 != undefined){
-        actualizarOpcion(opcion2, pregId)
+        actualizarOpcion(opcion2, o2Id)
     }
     if(opcion3 != undefined && correcta3 == true){
-        actualizarOpcionT(opcion3, pregId)
+        actualizarOpcionT(opcion3, o3Id)
     } else if(opcion3 != undefined){
-        actualizarOpcion(opcion3, pregId)
+        actualizarOpcion(opcion3, o3Id)
     }
     if(opcion4 != undefined && correcta4 == true){
-        actualizarOpcionT(opcion4, pregId)
+        actualizarOpcionT(opcion4, o4Id)
     } else if(opcion4 != undefined){
-        actualizarOpcion(opcion4, pregId)
+        actualizarOpcion(opcion4, o4Id)
     }
 }
 
