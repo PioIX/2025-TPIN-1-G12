@@ -109,6 +109,46 @@ class UI {
         let usuario = document.getElementById("preguntaid-1").value
         return usuario
     }
+
+    getTrue1(){
+        let verif = document.getElementById("correcto-1").checked
+        return verif
+    }
+
+    getTrue2(){
+        let verif = document.getElementById("correcto-2").checked
+        return verif
+    }
+
+    getTrue3(){
+        let verif = document.getElementById("correcto-3").checked
+        return verif
+    }
+
+    getTrue4(){
+        let verif = document.getElementById("correcto-4").checked
+        return verif
+    }
+
+    getTrue1M(){
+        let verif = document.getElementById("correcto-5").checked
+        return verif
+    }
+
+    getTrue2M(){
+        let verif = document.getElementById("correcto-6").checked
+        return verif
+    }
+
+    getTrue3M(){
+        let verif = document.getElementById("correcto-7").checked
+        return verif
+    }
+
+    getTrue4M(){
+        let verif = document.getElementById("correcto-8").checked
+        return verif
+    }
 }
 
 const ui = new UI();
