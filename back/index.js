@@ -16,12 +16,18 @@ app.get('/', function(req, res){
     });
 });
 
+//Pongo el servidor a escuchar
+app.listen(port, function () {
+    console.log(`Server running in http://localhost:${port}`);
+});
+
+
 app.post('/login',async function(req,res){
     try {
         console.log(req.body);
-        let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Username = "${req.body.username}", Password = "${req.body.password}" `)
+        let vector = await realizarQuery(`SELECT * FROM Users WHERE Username = "${req.body.username}" AND Contra = "${req.body.password}"; `)
         if(vector.length != 0){
-            let loguedUser = await realizarQuery(`SELECT * FROM Usuarios WHERE Username = "${req.body.username}", Password = "${req.body.password}" `)
+            let loguedUser = await realizarQuery(`SELECT * FROM Users WHERE Username = "${req.body.username}" and Contra = "${req.body.password}"; `)
             res.send({validar:true, log:loguedUser})
         }
         else{
@@ -35,10 +41,10 @@ app.post('/login',async function(req,res){
 app.post('/registro',async function(req,res){
     try {
         console.log(req.body);
-        let vector = await realizarQuery(`SELECT * FROM Usuarios WHERE Username = "${req.body.username}", Mail = "${req.body.mail}", Password = "${req.body.password}" `)
+        let vector = await realizarQuery(`SELECT * FROM Users WHERE Username = "${req.body.username}", Mail = "${req.body.mail}", Contra = "${req.body.password}" `)
         if(vector.length == 0){
-            await realizarQuery(`INSERT INTO Usuarios (Username,Mail,Password) VALUES ("${req.body.username}","${req.body.mail}", "${req.body.password}");`);
-            let loguedUser = await realizarQuery(`SELECT * FROM Usuarios WHERE Username = "${req.body.username}", Password = "${req.body.password}" `)
+            await realizarQuery(`INSERT INTO Users (Username,Mail,Contra) VALUES ("${req.body.username}","${req.body.mail}", "${req.body.password}");`);
+            let loguedUser = await realizarQuery(`SELECT * FROM Users WHERE Username = "${req.body.username}", Contra = "${req.body.password}" `)
             res.send({validar:true, log:loguedUser});
         }
         else{
@@ -116,7 +122,7 @@ app.post('/opciones',async function(req,res){
         console.log(req.body);
         let vector = await realizarQuery(`SELECT * FROM Opciones WHERE Opcion = "${req.body.opcion}"`)
         if(vector.length == 0){
-            await realizarQuery(`INSERT INTO Opciones (Opcion,Id_Pregunta) VALUES ("${req.body.opcion}", "${req.body.id}");`);
+            await realizarQuery(`INSERT INTO Opciones (Opcion,Id_Pregunta) VALUES ("${req.body.opcion}", ${req.body.id}, ${req.body.correcta} );`);
             res.send({validar:true});
         }
         else{
@@ -189,7 +195,7 @@ app.put('/preguntas', async function(req,res){
 app.put('/opciones', async function(req,res){
     try {
         console.log(req.body);
-        await realizarQuery(`UPDATE Opciones SET Opcion = "${req.body.cambio}" WHERE Id_Opcion = ${req.body.id}`);
+        await realizarQuery(`UPDATE Opciones SET Opcion = "${req.body.cambio}", Correcta = ${req.body.correcta} WHERE Id_Opcion = ${req.body.id}`);
         res.send({validar:true})
     } catch (error) {
         res.send({validar:false})
