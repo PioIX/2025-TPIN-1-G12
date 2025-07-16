@@ -14,7 +14,7 @@ async function registro(datos) {
     } else {
         ui.showModal("Exito", "Usuario creado sin problemas")
         loguedUser = result.log
-        window.location.replace("juego.html")
+        window.location.replace("ruleta.html")
         return;
     }
 }
@@ -48,7 +48,7 @@ async function login(datos) {
         return ui.showModal("Error", "Usuario o contraseña inexistente")
     } else {
         loguedUser = result.log
-        window.location.replace("juego.html")
+        window.location.replace("ruleta.html")
         return;
     }
 }
