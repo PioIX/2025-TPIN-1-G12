@@ -27,7 +27,7 @@ app.post('/login',async function(req,res){
         console.log(req.body);
         let vector = await realizarQuery(`SELECT * FROM Users WHERE Username = "${req.body.username}" AND Contra = "${req.body.password}"; `)
         if(vector.length != 0){
-            let loguedUser = await realizarQuery(`SELECT * FROM Users WHERE Username = "${req.body.username}" and Contra = "${req.body.password}"; `)
+            let loguedUser = await realizarQuery(`SELECT ID FROM Users WHERE Username = "${req.body.username}" and Contra = "${req.body.password}"; `)
             res.send({validar:true, log:loguedUser})
         }
         else{
@@ -153,12 +153,9 @@ app.post('/correccion',async function(req,res){
     try {
         console.log(req.body);
         let vector = await realizarQuery(`SELECT Correcta FROM Opciones WHERE Opcion = "${req.body.opcion}"`)
-        if(vector.length == 0){
-            if(vector == true){
-                res.send({validar:true, rta:"bien"});
-            }else{
-                res.send({validar:true, rta:"mal"});
-            }  
+        if(vector.length != 0){
+            console.log(vector)
+            res.send({validar:true, rta:vector});
         }
         else{
             res.send({validar:false});

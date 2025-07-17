@@ -1,4 +1,5 @@
-let loguedUser = 0
+let loguedUser=0
+let puntajeActual=0
 
 async function registro(datos) {
     response = await fetch(`http://localhost:4001/registro`,{
@@ -13,8 +14,8 @@ async function registro(datos) {
         return ui.showModal("Error", "Usuario existente")
     } else {
         ui.showModal("Exito", "Usuario creado sin problemas")
-        loguedUser = result.log
-        window.location.replace("ruleta.html")
+        localStorage.setItem("loguedUser", result.log[0].ID);
+        setTimeout(window.location.replace("juego.html"), 10000)
         return;
     }
 }
@@ -47,8 +48,8 @@ async function login(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Usuario o contraseña inexistente")
     } else {
-        loguedUser = result.log
-        window.location.replace("ruleta.html")
+        localStorage.setItem("loguedUser", result.log[0].ID);
+        setTimeout(window.location.replace("juego.html"), 10000)
         return;
     }
 }
@@ -454,10 +455,10 @@ async function fillOpciones(pregID) {
         id: pregID,
     }
     let opciones = await traerOpciones(datos)
-    document.getElementById("opcion-1").innerHTML = `<button id="but-1" onclick="bienOMAL(${opciones[0].Opcion})">${opciones[0].Opcion}</button>`
-    document.getElementById("opcion-2").innerHTML = `<button id="but-2" onclick="bienOMAL(${opciones[1].Opcion})">${opciones[1].Opcion}</button>`
-    document.getElementById("opcion-3").innerHTML = `<button id="but-3" onclick="bienOMAL(${opciones[2].Opcion})">${opciones[2].Opcion}</button>`
-    document.getElementById("opcion-4").innerHTML = `<button id="but-1" onclick="bienOMAL(${opciones[3].Opcion})">${opciones[3].Opcion}</button>`
+    document.getElementById("opcion-1").innerHTML = `<button id="but-1" type="button" onclick="bienOMal('${opciones[0].Opcion}')">${opciones[0].Opcion}</button>`
+    document.getElementById("opcion-2").innerHTML = `<button id="but-2" type="button" onclick="bienOMal('${opciones[1].Opcion}')">${opciones[1].Opcion}</button>`
+    document.getElementById("opcion-3").innerHTML = `<button id="but-3" type="button" onclick="bienOMal('${opciones[2].Opcion}')">${opciones[2].Opcion}</button>`
+    document.getElementById("opcion-4").innerHTML = `<button id="but-1" type="button" onclick="bienOMal('${opciones[3].Opcion}')">${opciones[3].Opcion}</button>`
     return
 }
 
@@ -637,7 +638,7 @@ function botonModPreg(){
 
 
 async function traerCorreccion(datos) {
-    response = await fetch(`http://localhost:4001/opcionesGame`,{
+    response = await fetch(`http://localhost:4001/correccion`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -646,69 +647,75 @@ async function traerCorreccion(datos) {
     })
     let result = await response.json()
     if(result.validar == false){
-        ui.showModal("Error", "Pregunta no Encontrada")
+        ui.showModal("Error", "Correccion no Encontrada")
         return;
     } else {
         let verif = result.rta
-        return verif
+        console.log(verif[0].Correcta)
+        return verif[0].Correcta
     }
 }
 
-function finDelJuego(user, puntajeActual){
-    let final = traerPuntaje(user)
-    if(puntajeActual > final){
-        newMax(puntajeActual, user)
-    } else {
-        ui.showModal("Bien jugado", "Tal vez la proxima superes tu mejor racha")
-    }
-}
-
-
-function bienOMal() {
-    let opcion1 = document.getElementById("but-1")
-    let opcion2 = document.getElementById("but-2")
-    let opcion3 = document.getElementById("but-3")
-    let opcion4 = document.getElementById("but-4")
-    let chequear = ""
-    if(opcion1.checked == true){
-        chequear = opcion1.value
-    }
-    if(opcion2.checked == true){
-        chequear = opcion2.value
-    }
-    if(opcion3.checked == true){
-        chequear = opcion3.value
-    }
-    if(opcion4.checked == true){
-        chequear = opcion4.value
-    }
-    if(pregID == undefined){
+async function verificar(rta){
+    if(rta == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
-        opcion: chequear,
+        opcion: rta,
     }
-    let puedeSer = traerCorreccion(datos)
+    let a = await traerCorreccion(datos)
+    console.log(a)
+    if(a == 1){
+        return "bien"
+    }else if (a == 0) {
+        return "mal"
+    }
+}
+
+async function finDelJuego(user, puntajeActual){
+    let final = await traerPuntaje(user)
+    if(puntajeActual > final){
+        newMax(puntajeActual, user)
+        document.getElementById("contenido-3").style.display = "none"
+        document.getElementById("ruleta-2").style.display = "block"
+        return ui.showModal("Bien jugado", "Nuevo mejor puntaje")
+    } else {
+        puntajeActual = 0
+        document.getElementById("puntaje").textContent = `Puntaje Actual: ${puntajeActual}`
+        document.getElementById("contenido-3").style.display = "none"
+        document.getElementById("ruleta-2").style.display = "block"
+        return ui.showModal("Bien jugado", "Tal vez la proxima superes tu mejor racha")
+    }
+}
+
+
+async function bienOMal(rta) {
+    console.log(loguedUser)
+    console.log(puntajeActual)
+    let puedeSer = await verificar(rta)
+    console.log(puedeSer)
     if(puedeSer == "bien"){
+        console.log("xd")
         puntajeActual += 1
-        document.getElementById("puntaje").value = puntajeActual
+        document.getElementById("puntaje").textContent = `Puntaje Actual: ${puntajeActual}`
         document.getElementById("contenido-3").style.display = "none"
         document.getElementById("ruleta-2").style.display = "block"
     } else if (puedeSer == "mal"){
+        console.log("xdnt")
         finDelJuego(loguedUser, puntajeActual)
     }
     return
 }
 
 function logout() {
+    localStorage.setItem("loguedUser", 0)
     loguedUser = 0;
-    puntajeActual=0;
+    puntajeActual = 0;
     window.location.replace("login.html");
 }
 
 async function startGame(cat){
-    document.getElementById("contenido-3").style.display = "flex";
-    document.getElementById("ruleta-2").style.display = "none "
+    loguedUser = localStorage.getItem("loguedUser")
     let catId = await categoria(cat)
     let preg = await preguntinia(catId[0].Id_Categoria)
     let pregId = await idPreg(preg.Pregunta)
@@ -716,4 +723,6 @@ async function startGame(cat){
     console.log(pregId.Id_Pregunta)
     fillOpciones(pregId.Id_Pregunta)
     document.getElementById("preguntita").textContent = preg.Pregunta
+    document.getElementById("contenido-3").style.display = "flex";
+    document.getElementById("ruleta-2").style.display = "none "
 }

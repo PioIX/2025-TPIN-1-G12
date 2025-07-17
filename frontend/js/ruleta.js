@@ -117,7 +117,7 @@ function stopRotateWheel() {
   ctx.font = 'bold 30px Helvetica, Arial';
   var text = options[index]
   ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
-  setTimeout(startGame(options[index]), 10000)
+  setTimeout(startGame(options[index]), 100000)
   ctx.restore();
 }
 
