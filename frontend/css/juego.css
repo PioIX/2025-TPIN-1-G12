@@ -76,8 +76,6 @@ body {
 }
 
 #but-1:hover, #but-2:hover, #but-3:hover, #but-4:hover {
-  background: #e63946;
-  color: #f1faee;
   border: solid #f1faee;
   width: 420px;
 }
@@ -91,8 +89,7 @@ body {
     border: solid #e63946;
     transition-duration: 0.4s;
     width: 150px;
-    margin-top: 4%;
-    margin-left: 87%;
+    margin-left: 15%;
 } 
 
 #logoutbut:hover {
@@ -147,4 +144,49 @@ input:hover {
     color: #f1faee;
     border: solid #f1faee;
     width: 230px;
+}
+
+#contenido-4 {
+    display: none;
+    flex-direction: row;
+    gap: 30px;
+}
+
+#ranking {
+    text-align: center;
+    position: relative;
+    background-color: #e63946;
+    color: #f1faee;
+    padding: 50px;
+    margin-top: 50px;
+    border-radius: 20px;
+    left: 45%;
+    width: 600px;
+    transform: translate(-50%);
+}
+
+#ranking h2 {
+    font-size: 80px;
+    color: #6d0000;
+}
+
+#ranking ul {
+    font-size: 60px;
+    margin-left: -25px;
+}
+
+#btn-cerrar {
+    padding: 5px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    font-weight: bold;
+    color: #6d0000;
+    display: block;
+    margin-left: 15px;
+    transition-duration: 0.4s;
+}
+
+#btn-cerrar:hover {
+    color: #f1faee;
 }
