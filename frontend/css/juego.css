@@ -89,7 +89,8 @@ body {
     border: solid #e63946;
     transition-duration: 0.4s;
     width: 150px;
-    margin-left: 15%;
+    margin-top: 15%;
+    margin-left: 30%;
 } 
 
 #logoutbut:hover {
