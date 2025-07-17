@@ -33,15 +33,16 @@ body {
 }
 
 #contenido-3 {
-    padding: 20px;
+    padding: 15px;
     text-align: center;
     position: relative;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
     top: 45%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
     gap: 50px   ;
+    width: 70%;
 }
 
 #contenidopreg {
@@ -64,6 +65,52 @@ body {
     flex-wrap: wrap;
 }
 
+#but-1, #but-2, #but-3, #but-4 {
+    background-color: #e63946;
+    padding: 15px;
+    border-radius: 20px;
+    color: #f1faee;
+    border: solid #6d0000;
+    width: 400px;
+    transition-duration: 0.4s;
+}
+
+#but-1:hover, #but-2:hover, #but-3:hover, #but-4:hover {
+  background: #e63946;
+  color: #f1faee;
+  border: solid #f1faee;
+  width: 420px;
+}
+
+#logoutbut {
+    padding: 4.5px;
+    border-radius: 20px;
+    align-items: flex-end;
+    background-color: #e63946;
+    color: #f1faee;
+    border: solid #e63946;
+    transition-duration: 0.4s;
+    width: 150px;
+    margin-top: 4%;
+    margin-left: 87%;
+} 
+
+#logoutbut:hover {
+    background-color: #6d0000;
+    border: solid #6d0000;
+    width: 170px;
+}
+
+#ruleta-2 {
+    display: block;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 #puntaje {
     background-color: #e63946;
     padding: 10px;
@@ -72,44 +119,32 @@ body {
     text-align: center;
     display: block;
     max-width: 150px;
-    max-height: 39px;
     font-size: 15px;
     margin-top: 15px;
     margin-left: 15px;
+    height: 45px;
 }
 
-#but-1, #but-2, #but-3, #but-4 {
-    background-color: #e63946;
-    padding: 15px;
+input {
+    padding: 10px;
     border-radius: 20px;
-    color: #f1faee;
+    font-size: 30px;
     border: solid #6d0000;
-    width: 500px;
-    transition-duration: 0.4s;
-}
-
-#but-1:hover, #but-2:hover, #but-3:hover, #but-4:hover {
-  background: #e63946;
-  color: #f1faee;
-  border: solid #f1faee;
-  width: 520px;
-}
-
-#logoutbut {
-    padding: 15px;
-    border-radius: 20px;
-    align-items: flex-end;
     background-color: #e63946;
     color: #f1faee;
-    border: solid #e63946;
     transition-duration: 0.4s;
-    width: 150px;
-    margin-top: 20px;
-    margin-left: 90%;
+    width: 200px;
+    margin-left: 45%;
+    text-align: center;
+    position: relative;
+    top: 15%;
+    left: 5%;
+    transform: translate(-50%, -50%);
 }
 
-#logoutbut:hover {
-    background-color: #6d0000;
-    border: solid #6d0000;
-    width: 170px;
+input:hover {
+    background: #e63946;
+    color: #f1faee;
+    border: solid #f1faee;
+    width: 230px;
 }
