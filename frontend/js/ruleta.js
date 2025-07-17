@@ -1,4 +1,4 @@
-var options = ["Historia","Ciencia","Videojuegos","Series y Peliculas","Cultura Pop","Anime","Musica"];
+var options = ["Historia","Ciencia","Videojuegos","Series y Pelis","Cultura Pop","Anime","Musica"];
 
 var startAngle = 0;
 var arc = Math.PI / (options.length / 2);
@@ -117,6 +117,7 @@ function stopRotateWheel() {
   ctx.font = 'bold 30px Helvetica, Arial';
   var text = options[index]
   ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
+  setTimeout(startGame(options[index]), 10000)
   ctx.restore();
 }
 
