@@ -149,6 +149,12 @@ class UI {
         let verif = document.getElementById("correcto-8").checked
         return verif
     }
+
+    getJuego(){
+        let verif = document.getElementById("contenido-3").style.display
+        console.log(verif)
+        return verif
+    }
 }
 
 const ui = new UI();

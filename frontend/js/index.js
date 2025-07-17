@@ -294,7 +294,7 @@ async function preguntinia(catID) {
 }
 
 async function traerIdPregunta(datos) {
-    response = await fetch(`http://localhost:4001/pregGame`,{
+    response = await fetch(`http://localhost:4001/idpregGame`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -303,10 +303,11 @@ async function traerIdPregunta(datos) {
     })
     let result = await response.json()
     if(result.validar == false){
-        ui.showModal("Error", "Pregunta no Encontrada")
+        ui.showModal("Error", "Id pregunta no Encontrada")
         return;
     } else {
         let pregunta = result.validar
+        console.log(pregunta)
         return pregunta
     }
 }
@@ -320,7 +321,8 @@ async function idPreg(pregunta) {
         pregunta: pregunta,
     }
     let id = await traerIdPregunta(datos)
-    return id
+    console.log(id[0])
+    return id[0]
 }
 
 async function cambiazoPregunta(datos) {
@@ -452,10 +454,10 @@ async function fillOpciones(pregID) {
         id: pregID,
     }
     let opciones = await traerOpciones(datos)
-    document.getElementById("but-1").value = opciones[0].Opcion
-    document.getElementById("but-2").value = opciones[1].Opcion
-    document.getElementById("but-3").value = opciones[2].Opcion
-    document.getElementById("but-4").value = opciones[3].Opcion
+    document.getElementById("opcion-1").innerHTML = `<button id="but-1" onclick="bienOMAL(${opciones[0].Opcion})">${opciones[0].Opcion}</button>`
+    document.getElementById("opcion-2").innerHTML = `<button id="but-2" onclick="bienOMAL(${opciones[1].Opcion})">${opciones[1].Opcion}</button>`
+    document.getElementById("opcion-3").innerHTML = `<button id="but-3" onclick="bienOMAL(${opciones[2].Opcion})">${opciones[2].Opcion}</button>`
+    document.getElementById("opcion-4").innerHTML = `<button id="but-1" onclick="bienOMAL(${opciones[3].Opcion})">${opciones[3].Opcion}</button>`
     return
 }
 
@@ -632,19 +634,7 @@ function botonModPreg(){
     }
 }
 
-function a(){
-    window.location.replace("juego.html")
-}
 
-async function startGame(cat){
-    let catId = await categoria(cat)
-    let preg = await preguntinia(catId[0].Id_Categoria)
-    let pregId = await idPreg(catId[0].Id_Categoria)
-    a()
-    console.log(preg.Pregunta)
-    document.getElementById("preguntita").value = preg.Pregunta
-    fillOpciones(pregId[0].Id_pregunta)
-}
 
 async function traerCorreccion(datos) {
     response = await fetch(`http://localhost:4001/opcionesGame`,{
@@ -701,6 +691,9 @@ function bienOMal() {
     let puedeSer = traerCorreccion(datos)
     if(puedeSer == "bien"){
         puntajeActual += 1
+        document.getElementById("puntaje").value = puntajeActual
+        document.getElementById("contenido-3").style.display = "none"
+        document.getElementById("ruleta-2").style.display = "block"
     } else if (puedeSer == "mal"){
         finDelJuego(loguedUser, puntajeActual)
     }
@@ -711,4 +704,16 @@ function logout() {
     loguedUser = 0;
     puntajeActual=0;
     window.location.replace("login.html");
+}
+
+async function startGame(cat){
+    document.getElementById("contenido-3").style.display = "flex";
+    document.getElementById("ruleta-2").style.display = "none "
+    let catId = await categoria(cat)
+    let preg = await preguntinia(catId[0].Id_Categoria)
+    let pregId = await idPreg(preg.Pregunta)
+    console.log(preg.Pregunta)
+    console.log(pregId.Id_Pregunta)
+    fillOpciones(pregId.Id_Pregunta)
+    document.getElementById("preguntita").textContent = preg.Pregunta
 }

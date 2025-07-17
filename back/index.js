@@ -106,7 +106,7 @@ app.post('/pregGame',async function(req,res){
 app.post('/idpregGame',async function(req,res){
     try {
         console.log(req.body);
-        let vector = await realizarQuery(`SELECT Id_Pregunta FROM Preguntas WHERE Pregunta = "${req.body.pregunta}"`)
+        let vector = await realizarQuery(`SELECT Id_Pregunta FROM Preguntas WHERE Pregunta = '${req.body.pregunta}'`)
         if(vector.length != 0){
             res.send({validar:vector})
         }
