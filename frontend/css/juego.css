@@ -53,6 +53,7 @@ body {
     justify-self: center;
     padding: 120px;
     width: 80%;
+    padding-top: -20px;
 }
 
 #formosa {
@@ -190,4 +191,22 @@ input:hover {
 
 #btn-cerrar:hover {
     color: #f1faee;
+}
+
+#rankbut {
+    margin-left: 85%;
+    margin-top: -3.5%;
+    padding: 4.5px;
+    border-radius: 20px;
+    background-color: #e63946;
+    color: #f1faee;
+    border: solid #e63946;
+    transition-duration: 0.4s;
+    width: 150px;
+}
+
+#rankbut:hover {
+    background-color: #6d0000;
+    border: solid #6d0000;
+    width: 170px;
 }
