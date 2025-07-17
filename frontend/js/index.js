@@ -1,7 +1,7 @@
 let loguedUser = 0
 
 async function registro(datos) {
-    response = await fetch(`http://localhost:4000/registro`,{
+    response = await fetch(`http://localhost:4001/registro`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -12,9 +12,9 @@ async function registro(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Usuario existente")
     } else {
-        ui.showmodal("Exito", "Usuario creado sin problemas")
+        ui.showModal("Exito", "Usuario creado sin problemas")
         loguedUser = result.log
-        window.location.replace("juego.html")
+        window.location.replace("ruleta.html")
         return;
     }
 }
@@ -36,7 +36,7 @@ function registrar() {
 }
 
 async function login(datos) {
-    response = await fetch(`http://localhost:4000/login`,{
+    response = await fetch(`http://localhost:4001/login`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -48,7 +48,7 @@ async function login(datos) {
         return ui.showModal("Error", "Usuario o contraseña inexistente")
     } else {
         loguedUser = result.log
-        window.location.replace("juego.html")
+        window.location.replace("ruleta.html")
         return;
     }
 }
@@ -70,7 +70,7 @@ function loguear() {
 }
 
 async function deleteUsers(datos) {
-    response = await fetch(`http://localhost:4000/usuarios`,{
+    response = await fetch(`http://localhost:4001/usuarios`,{
         method:"DELETE", 
         headers: {
             "Content-Type": "application/json",
@@ -81,7 +81,7 @@ async function deleteUsers(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Usuario no eliminado; verifique los campos ingresados o intente de nuevo mas tarde")
     } else {
-        ui.showmodal("Exito", "Usuario Aniquilado")
+        ui.showModal("Exito", "Usuario Aniquilado")
     }
 }
 
@@ -98,7 +98,7 @@ function borrarUsuario() {
 }
 
 async function getPoints(datos) {
-    response = await fetch(`http://localhost:4000/puntaje`,{
+    response = await fetch(`http://localhost:4001/puntaje`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -128,7 +128,7 @@ function traerPuntaje(id) {
 }
 
 async function nuevoMaximo(datos) {
-    response = await fetch(`http://localhost:4000/mejorPuntaje`,{
+    response = await fetch(`http://localhost:4001/mejorPuntaje`,{
         method:"PUT", 
         headers: {
             "Content-Type": "application/json",
@@ -139,7 +139,7 @@ async function nuevoMaximo(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Algo salio mal, no se pudo guardar el nuevo puntaje maximo")
     } else {
-        return ui.showmodal("Felicitaciones", "Nuevo mejor puntaje")
+        return ui.showModal("Felicitaciones", "Nuevo mejor puntaje")
     }
 }
 
@@ -156,7 +156,7 @@ function newMax(cambio, id) {
 }
 
 async function deletePoints(datos) {
-    response = await fetch(`http://localhost:4000/puntajeUsuarios`,{
+    response = await fetch(`http://localhost:4001/puntajeUsuarios`,{
         method:"PUT", 
         headers: {
             "Content-Type": "application/json",
@@ -167,7 +167,7 @@ async function deletePoints(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Puntaje no eliminado; verifique los campos ingresados o intente de nuevo mas tarde")
     } else {
-        ui.showmodal("Exito", "Puntaje Extinguido")
+        ui.showModal("Exito", "Puntaje Extinguido")
     }
 }
 
@@ -185,7 +185,7 @@ function borrarPuntaje() {
 
 
 async function idCat(datos) {
-    response = await fetch(`http://localhost:4000/catPreg`,{
+    response = await fetch(`http://localhost:4001/catPreg`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -203,20 +203,32 @@ async function idCat(datos) {
 }
 
 
-function categoriaAdd() {
-    user = getCategoryAdd();
+async function categoriaAdd() {
+    user = ui.getCategoryAdd();
     if(user == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         categoria: user,
     }
-    let catId = idCat(datos)
+    let catId = await idCat(datos)
+    return catId
+}
+
+async function categoria(cat) {
+    if(cat == undefined){
+        return ui.showModal("Error", "Faltan datos")
+    }
+    let datos = {
+        categoria: cat,
+    }
+    let catId = await idCat(datos)
+    console.log(catId)
     return catId
 }
 
 async function sumarPregunta(datos) {
-    response = await fetch(`http://localhost:4000/preguntas`,{
+    response = await fetch(`http://localhost:4001/preguntas`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -228,28 +240,29 @@ async function sumarPregunta(datos) {
         ui.showModal("Error", "Pregunta no creada; verifique los campos ingresados")
         return;
     } else {
-        ui.showmodal("Exito", "Pregunta Añadida")
+        ui.showModal("Exito", "Pregunta Añadida")
         let pregId = result.pregunta
+        console.log(pregId)
         return pregId
     }
 }
 
 
-function aniadirPregunta(catID) {
+async function aniadirPregunta(catID) {
     user = ui.getContent();
-    if(user == undefined || mail == undefined){
+    if(user == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         pregunta: user,
         id: catID,
     }
-    let pregId = sumarPregunta(datos)
+    let pregId = await sumarPregunta(datos)
     return pregId
 }
 
 async function traerPregunta(datos) {
-    response = await fetch(`http://localhost:4000/idpregGame`,{
+    response = await fetch(`http://localhost:4001/pregGame`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -262,25 +275,26 @@ async function traerPregunta(datos) {
         return;
     } else {
         let pregunta = result.validar
+        console.log(pregunta)
         return pregunta
     }
 }
 
 
-function preguntinia(catID) {
+async function preguntinia(catID) {
     if(catID == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         id: catID,
     }
-    let pregunta = traerPregunta(datos)
-    document.getElementById("preguntita").value = pregunta
-    return pregunta
+    let preguntaza = await traerPregunta(datos)
+    console.log(preguntaza[0])
+    return preguntaza[0]
 }
 
 async function traerIdPregunta(datos) {
-    response = await fetch(`http://localhost:4000/pregGame`,{
+    response = await fetch(`http://localhost:4001/pregGame`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -298,19 +312,19 @@ async function traerIdPregunta(datos) {
 }
 
 
-function idPreg(pregunta) {
+async function idPreg(pregunta) {
     if(pregunta == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         pregunta: pregunta,
     }
-    let id = traerIdPregunta(datos)
+    let id = await traerIdPregunta(datos)
     return id
 }
 
 async function cambiazoPregunta(datos) {
-    response = await fetch(`http://localhost:4000/preguntas`,{
+    response = await fetch(`http://localhost:4001/preguntas`,{
         method:"PUT", 
         headers: {
             "Content-Type": "application/json",
@@ -321,14 +335,15 @@ async function cambiazoPregunta(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Pregunta no modificada; verifique los campos ingresados")
     } else {
-        ui.showmodal("Exito", "Pregunta Actualizada")
+        ui.showModal("Exito", "Pregunta Actualizada")
     }
 }
 
 
 function actualizarPregunta() {
-    user = ui.getContent();
-    mail = ui.getCategotyAdd();
+    user = ui.getContentMod();
+    mail = ui.getModPreg();
+    console.log()
     if(user == undefined || mail == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
@@ -340,7 +355,7 @@ function actualizarPregunta() {
 }
 
 async function deletePregunta(datos) {
-    response = await fetch(`http://localhost:4000/preguntas`,{
+    response = await fetch(`http://localhost:4001/preguntas`,{
         method:"DELETE", 
         headers: {
             "Content-Type": "application/json",
@@ -351,7 +366,7 @@ async function deletePregunta(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Pregunta no eliminada; verifique los campos ingresados o intente de nuevo mas tarde")
     } else {
-        ui.showmodal("Exito", "Pregunta eliminada de la faz del juego; restan opciones")
+        ui.showModal("Exito", "Pregunta eliminada de la faz del juego; restan opciones")
     }
 }
 
@@ -368,7 +383,7 @@ function borrarPregunta() {
 }
 
 async function sumarOpcion(datos) {
-    response = await fetch(`http://localhost:4000/opciones`,{
+    response = await fetch(`http://localhost:4001/opciones`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -379,14 +394,16 @@ async function sumarOpcion(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Opcion no creada; verifique los campos ingresados")
     } else {
-        ui.showmodal("Exito", "Opcion Añadida")
+        ui.showModal("Exito", "Opcion Añadida")
     }
 }
 
 
 function aniadirOpcion(opcion, id) {
+    console.log(opcion)
+    console.log(id)
     if(opcion == undefined || id == undefined){
-        return ui.showModal("Error", "Faltan datos")
+        return ui.showModal("Error", "Faltan datos falsos")
     }
     let datos = {
         opcion: opcion,
@@ -398,7 +415,7 @@ function aniadirOpcion(opcion, id) {
 
 function aniadirOpcionT(opcion, id) {
     if(opcion == undefined || id == undefined){
-        return ui.showModal("Error", "Faltan datos")
+        return ui.showModal("Error", "Faltan datos posta")
     }
     let datos = {
         opcion: opcion,
@@ -409,7 +426,7 @@ function aniadirOpcionT(opcion, id) {
 }
 
 async function traerOpciones(datos) {
-    response = await fetch(`http://localhost:4000/opcionesGame`,{
+    response = await fetch(`http://localhost:4001/opcionesGame`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -427,23 +444,23 @@ async function traerOpciones(datos) {
 }
 
 
-function fillOpciones(pregID) {
+async function fillOpciones(pregID) {
     if(pregID == undefined){
         return ui.showModal("Error", "Faltan datos")
     }
     let datos = {
         id: pregID,
     }
-    let opciones = traerOpciones(datos)
-    document.getElementById("but-1").value = opciones[0]
-    document.getElementById("but-2").value = opciones[1]
-    document.getElementById("but-3").value = opciones[2]
-    document.getElementById("but-4").value = opciones[3]
+    let opciones = await traerOpciones(datos)
+    document.getElementById("but-1").value = opciones[0].Opcion
+    document.getElementById("but-2").value = opciones[1].Opcion
+    document.getElementById("but-3").value = opciones[2].Opcion
+    document.getElementById("but-4").value = opciones[3].Opcion
     return
 }
 
 async function cambiazoOpcion(datos) {
-    response = await fetch(`http://localhost:4000/opciones`,{
+    response = await fetch(`http://localhost:4001/opciones`,{
         method:"PUT", 
         headers: {
             "Content-Type": "application/json",
@@ -454,7 +471,7 @@ async function cambiazoOpcion(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Opcion no modificada; verifique los campos ingresados")
     } else {
-        ui.showmodal("Exito", "Opcion Actualizada")
+        ui.showModal("Exito", "Opcion Actualizada")
     }
 }
 
@@ -484,7 +501,7 @@ function actualizarOpcionT(cambio, id) {
 }
 
 async function menosOpcion(datos) {
-    response = await fetch(`http://localhost:4000/opcionesUnica`,{
+    response = await fetch(`http://localhost:4001/opcionesUnica`,{
         method:"DELETE", 
         headers: {
             "Content-Type": "application/json",
@@ -495,7 +512,7 @@ async function menosOpcion(datos) {
     if(result.validar == false){
         return ui.showModal("Error", "Opcion no eliminada; verifique los campos ingresados o intente de nuevo mas tarde")
     } else {
-        ui.showmodal("Exito", "Opcion fuera de juego")
+        ui.showModal("Exito", "Opcion fuera de juego")
     }
 }
 
@@ -512,7 +529,7 @@ function borrarOpcion() {
 }
 
 async function noMasOpcion(datos) {
-    response = await fetch(`http://localhost:4000/opcionesPreg`,{
+    response = await fetch(`http://localhost:4001/opcionesPreg`,{
         method:"DELETE", 
         headers: {
             "Content-Type": "application/json",
@@ -523,7 +540,7 @@ async function noMasOpcion(datos) {
     if(result.validar == false){
         return ui.showModal("Algo salio mal", "Opciones no eliminadas")
     } else {
-        ui.showmodal("Exito", "Pregunta completamente terminada")
+        ui.showModal("Exito", "Pregunta completamente terminada")
     }
 }
 
@@ -539,7 +556,7 @@ function borrarOpciones() {
     noMasOpcion(datos)
 }
 
-function botonAddPreg(){
+async function botonAddPreg(){
     let opcion1 = ui.getOpcion1();
     let opcion2 = ui.getOpcion2();
     let opcion3 = ui.getOpcion3();
@@ -548,27 +565,28 @@ function botonAddPreg(){
     let correcta2 = ui.getTrue2();
     let correcta3 = ui.getTrue3();
     let correcta4 = ui.getTrue4();
-    let catID = ui.categoriaAdd();
-    let pregId = aniadirPregunta(catID)
+    let catID = await categoriaAdd();
+    let pregId = await aniadirPregunta(catID[0].Id_Categoria)
+    console.log(pregId[0].Id_pregunta)
     if(opcion1 != undefined && correcta1 == true){
-        aniadirOpcionT(opcion1, pregId)
+        aniadirOpcionT(opcion1, pregId[0].Id_pregunta)
     } else if(opcion1 != undefined){
-        aniadirOpcion(opcion1, pregId)
+        aniadirOpcion(opcion1, pregId[0].Id_pregunta)
     }
     if(opcion2 != undefined && correcta2 == true){
-        aniadirOpcionT(opcion2, pregId)
+        aniadirOpcionT(opcion2, pregId[0].Id_pregunta)
     } else if(opcion2 != undefined){
-        aniadirOpcion(opcion2, pregId)
+        aniadirOpcion(opcion2, pregId[0].Id_pregunta)
     }
     if(opcion3 != undefined && correcta3 == true){
-        aniadirOpcionT(opcion3, pregId)
+        aniadirOpcionT(opcion3, pregId[0].Id_pregunta)
     } else if(opcion3 != undefined){
-        aniadirOpcion(opcion3, pregId)
+        aniadirOpcion(opcion3, pregId[0].Id_pregunta)
     }
     if(opcion4 != undefined && correcta4 == true){
-        aniadirOpcionT(opcion4, pregId)
+        aniadirOpcionT(opcion4, pregId[0].Id_pregunta)
     } else if(opcion4 != undefined){
-        aniadirOpcion(opcion4, pregId)
+        aniadirOpcion(opcion4, pregId[0].Id_pregunta)
     }
 }
 
@@ -593,29 +611,43 @@ function botonModPreg(){
     let correcta4 = ui.getTrue4M();
     actualizarPregunta();
     if(opcion1 != undefined && correcta1 == true){
-        actualizarOpcionT(opcion1, pregId)
+        actualizarOpcionT(opcion1, o1Id)
     } else if(opcion1 != undefined){
-        actualizarOpcion(opcion1, pregId)
+        actualizarOpcion(opcion1, o1Id)
     }
     if(opcion2 != undefined && correcta2 == true){
-        actualizarOpcionT(opcion2, pregId)
+        actualizarOpcionT(opcion2, o2Id)
     } else if(opcion2 != undefined){
-        actualizarOpcion(opcion2, pregId)
+        actualizarOpcion(opcion2, o2Id)
     }
     if(opcion3 != undefined && correcta3 == true){
-        actualizarOpcionT(opcion3, pregId)
+        actualizarOpcionT(opcion3, o3Id)
     } else if(opcion3 != undefined){
-        actualizarOpcion(opcion3, pregId)
+        actualizarOpcion(opcion3, o3Id)
     }
     if(opcion4 != undefined && correcta4 == true){
-        actualizarOpcionT(opcion4, pregId)
+        actualizarOpcionT(opcion4, o4Id)
     } else if(opcion4 != undefined){
-        actualizarOpcion(opcion4, pregId)
+        actualizarOpcion(opcion4, o4Id)
     }
 }
 
+function a(){
+    window.location.replace("juego.html")
+}
+
+async function startGame(cat){
+    let catId = await categoria(cat)
+    let preg = await preguntinia(catId[0].Id_Categoria)
+    let pregId = await idPreg(catId[0].Id_Categoria)
+    a()
+    console.log(preg.Pregunta)
+    document.getElementById("preguntita").value = preg.Pregunta
+    fillOpciones(pregId[0].Id_pregunta)
+}
+
 async function traerCorreccion(datos) {
-    response = await fetch(`http://localhost:4000/opcionesGame`,{
+    response = await fetch(`http://localhost:4001/opcionesGame`,{
         method:"POST", 
         headers: {
             "Content-Type": "application/json",
@@ -678,5 +710,5 @@ function bienOMal() {
 function logout() {
     loguedUser = 0;
     puntajeActual=0;
-    window.location.replace("index.html");
+    window.location.replace("login.html");
 }

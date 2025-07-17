@@ -74,9 +74,10 @@ app.post('/preguntas',async function(req,res){
     try {
         console.log(req.body);
         let vector = await realizarQuery(`SELECT * FROM Preguntas WHERE Pregunta = "${req.body.pregunta}"`)
+        console.log(req.body);
         if(vector.length == 0){
             await realizarQuery(`INSERT INTO Preguntas (Pregunta,Id_Categoria) VALUES ("${req.body.pregunta}", "${req.body.id}");`);
-            let id = await realizarQuery(`SELECT LAST_INSERT_ID();`)
+            let id = await realizarQuery(`SELECT Id_pregunta FROM Preguntas WHERE Pregunta = "${req.body.pregunta}";`)
             res.send({validar:true, pregunta:id});
         }
         else{
@@ -122,7 +123,7 @@ app.post('/opciones',async function(req,res){
         console.log(req.body);
         let vector = await realizarQuery(`SELECT * FROM Opciones WHERE Opcion = "${req.body.opcion}"`)
         if(vector.length == 0){
-            await realizarQuery(`INSERT INTO Opciones (Opcion,Id_Pregunta) VALUES ("${req.body.opcion}", ${req.body.id}, ${req.body.correcta} );`);
+            await realizarQuery(`INSERT INTO Opciones (Opcion, Id_Pregunta, Correcta) VALUES ("${req.body.opcion}", ${req.body.id}, ${req.body.correcta} );`);
             res.send({validar:true});
         }
         else{
