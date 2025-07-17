@@ -16,6 +16,15 @@
     <div id="puntaje">
         <p>0</p>
     </div>
+    <div id="ruleta-2">
+        <div id="ruleta">
+            <canvas id="canvas" width="500" height="500"></canvas>
+        </div>
+        <input type="button" value="GIRAR" style="float:left;" id='spin' /> 
+        <div id="logout">
+            <button id="logoutbut" onclick="">Cerrar sesión</button>
+        </div>
+    </div>
     <div id="contenido-3">
         <div id="contenido-arriba">
             <div id="contenidopreg">
@@ -37,9 +46,6 @@
                     <button id="but-4" onclick="bienOMAL()">4</button>
                 </div>
             </form>
-        </div>
-        <div id="logout">
-            <button id="logoutbut" onclick="logout()">Cerrar sesión</button>
         </div>
     </div>
 
@@ -65,5 +71,6 @@
         crossorigin="anonymous"></script>
     <script src="js/dom.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/ruleta.js"></script>
 </body>
 </html>
